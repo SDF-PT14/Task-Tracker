@@ -1,0 +1,2 @@
+State
+data that a component remembers and can update while the app is running
