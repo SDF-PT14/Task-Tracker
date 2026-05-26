@@ -1,2 +1,9 @@
 State
 data that a component remembers and can update while the app is running
+
+Hook:is a special function allows components to use react features
+Hooks start with use
+usestate 
+useEffect
+useRef
+a controlled input is an input whose value is controlled by React state 
