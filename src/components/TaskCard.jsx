@@ -2,7 +2,6 @@ function TaskCard({title,status,onSelectTask}){
 	function handleSelectTask(){
 		onSelectTask(title)
 	}
-
 	return(
 		<div>
 				<h3>{title}</h3>

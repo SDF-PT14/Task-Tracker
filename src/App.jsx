@@ -1,9 +1,19 @@
 import TaskCard from "./components/TaskCard"
-import {useState} from "react"
+import {useState,useEffect} from "react"
 
-
-const tasks = [
-  {
+function App(){
+	const [selectedTask,setSelectedTask]=useState("")
+	const[newTaskTitle,setnewTaskTitle]=useState("")
+	const [submittedMessage,setSubmittedMessage]=useState("")
+	const [newTaskStatus,setTaskStatus]=useState("")
+	const [tasks,setTasks]=useState(()=>{
+		const savedTasks=localStorage.getItem("tasks");
+		if (savedTasks){
+			return JSON.parse(savedTasks)
+		}
+		return
+		[
+		 {
     id: 1,
     title: "Read React notes",
     status: "Pending",
@@ -53,19 +63,35 @@ const tasks = [
     title: "Prepare questions for tomorrow",
     status: "In Progress",
   },
-];
-function App(){
-	const [selectedTask,setSelectedTask]=useState("")
-	const[newTaskTitle,setnewTaskTitle]=useState("")
-	const [submittedMessage,setSubmittedMessage]=useState("")
-	const [newTaskStatus,setTaskStatus]=useState("")
+	]
+	}
+)
+
+	useEffect(()=>{
+		document.title=`Tasks:${tasks.length}`
+	},[tasks])
+
+	useEffect(()=>{
+		localStorage.setItem("tasks",JSON.stringify(tasks))
+	},[tasks])
 
 	function handleSubmitTask(event){
 		event.preventDefault();
+		if (newTaskTitle.trim()==="" || newTaskStatus.trim()===""){
+			setSubmittedMessage(alert("Please complete all the required information"));
+			return
+		}
+		const newTask={
+			id:Date.now(),
+			title:newTaskTitle,
+			status:newTaskStatus,
+		}
+		setTasks([...tasks,newTask])
 		setSubmittedMessage(alert(`New task submitted: ${newTaskTitle} with status ${newTaskStatus}`))
 		setnewTaskTitle("")
 		setTaskStatus("")
 	}
+	
 
 	return(
 		<div>

@@ -7,3 +7,9 @@ usestate
 useEffect
 useRef
 a controlled input is an input whose value is controlled by React state 
+
+syntax of useEffect
+====================
+useEffect(()=>{
+	//side effect code goes here
+},[])
